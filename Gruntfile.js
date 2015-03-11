@@ -77,7 +77,7 @@ module.exports = function (grunt) {
     // taskSet :: for running web based version of the app
 
         // Build a development version
-        grunt.registerTask('servercon:dev', [
+        grunt.registerTask('server:dev', [
             // Start a local webserver
             'connect:server',
             // Watch target directory and perform specified tasks, whenever file changes

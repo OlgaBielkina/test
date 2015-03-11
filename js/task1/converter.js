@@ -4,21 +4,17 @@ define([
   ], function(Dictionary, Assert) {
     var Converter = function() {};
 
-    Converter.prototype.convertNumber = function(number, divider1, divider2) {
+    Converter.prototype.convertNumber = function(number) {
       Assert.isNumber(number);
-      Assert.isNumber(divider1);
-      Assert.isNumber(divider2);
 
       var convertedValue = '';
 
-      if (number % divider1 === 0) {
-        Assert.isDefined(Dictionary[divider1]);
-        convertedValue = Dictionary[divider1];
+      if (number % 3 === 0) {
+        convertedValue = 'Bizz';
       }
 
-      if (number % divider2 === 0) {
-        Assert.isDefined(Dictionary[divider2]);
-        convertedValue += Dictionary[divider2];
+      if (number % 5 === 0) {
+        convertedValue += 'Appz';
       }
 
       return convertedValue || number;
