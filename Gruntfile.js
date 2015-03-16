@@ -71,6 +71,17 @@ module.exports = function (grunt) {
                 hostname: 'localhost'
               }
             }
+        },
+        
+        jasmine: {
+            taskName: {
+              options: {
+                vendor: 'bower_components/requirejs/require.js',
+                specs: 'tests/**/*Test.js',
+                //helpers: 'tests/*Helper.js',
+                host: 'http://127.0.0.1:8000/'
+              }
+            }
         }
     });
 
