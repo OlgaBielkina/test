@@ -65,10 +65,35 @@ module.exports = function (grunt) {
         },
         // Serve the files of the project on specified port and hostname
         connect: {
-            server: {
+          server: {
+            options: {
+              port: 8000,
+              hostname: 'localhost'
+            }
+          },
+          test: {
+            options: {
+              port: 9001,
+              hostname: 'localhost'
+            }
+        }
+    },
+
+        open: {
+          test: {
+            path: 'http://localhost:9001/_SpecRunner.html',
+            app: 'Google Chrome'
+          }
+        },
+        
+        jasmine: {
+            taskName: {
               options: {
-                port: 8000,
-                hostname: 'localhost'
+                vendor: 'bower_components/requirejs/require.js',
+                specs: ['tests/customMatchers.js', 'tests/**/*Test.js'],
+                //helpers: 'tests/*Helper.js',
+                host: 'http://localhost:9001/',
+                keepRunner: true
               }
             }
         }
@@ -82,5 +107,12 @@ module.exports = function (grunt) {
             'connect:server',
             // Watch target directory and perform specified tasks, whenever file changes
             'watch'
+        ]);
+        // Build a development version
+        grunt.registerTask('test', [
+            // Start a local webserver
+            'connect:test',
+            'open:test',
+            'jasmine'  
         ]);
 };

@@ -2,11 +2,11 @@ define(function() {
 	chartConfigs = {
         title: {
             text: '',
-            x: -20
+            x: 0
         },
         subtitle: {
             text: '',
-            x: -20
+            x: 0
         },
         xAxis: {
             categories: []

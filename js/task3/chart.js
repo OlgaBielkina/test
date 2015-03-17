@@ -1,10 +1,12 @@
 define([
-    'shared/view',
-    'task3/models/graph',
+    'jquery',
+    'js/shared/view',
+    'js/task3/models/graph',
     'highcharts',
-    'task3/models/chart'
+    'js/task3/models/chart'
 
   ], function(
+    $,
     View,
     Graph,
     Highcharts,
@@ -16,11 +18,12 @@ define([
     ChartView.prototype.constructor = ChartView;
 
     ChartView.prototype.getChartData = function() {
+        var deferred = new jQuery.Deferred();
     	var chartConfigs = ChartConfig;
     	var graph = new Graph();
     	var xAxis = [];
     	var series = {name: '', data: []};
-	    graph.fetch().then(function() {
+	    config = graph.fetch().then(function() {
 	      	var step = 1;
 			for(var i = 0; i < graph.getLength(); i = i + step) {
 				var date = graph._items[i].date;
@@ -34,16 +37,20 @@ define([
 
 			chartConfigs.xAxis.categories = xAxis;
 			chartConfigs.series.push(series);
+            deferred.resolve(chartConfigs);
 		});
 		
 
-		return chartConfigs;
+		return deferred.promise();
 
     }
 
     ChartView.prototype.render = function() {
     	var chartConfigs = this.getChartData();
-		$('#container').highcharts(chartConfigs);
+        chartConfigs.then(function(configs) {
+            $('#container').highcharts(configs);
+        })
+		
   }
 
     return ChartView;

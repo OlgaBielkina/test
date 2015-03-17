@@ -7,8 +7,8 @@
  */
 
 define([
-  'shared/Type',
-  'error/assertionError'
+  'js/shared/Type',
+  'js/error/assertionError'
   ],function (Type, AssertionError) {
     /**
      * @see Assert#fail()

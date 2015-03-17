@@ -1,6 +1,6 @@
 'use strict';
 define([
-  'error/exception'
+  'js/error/exception'
 ], function (Exception) {
   /**
    * Thrown to indicate assertion failure.

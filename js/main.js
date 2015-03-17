@@ -1,5 +1,5 @@
 require.config({
-  baseUrl: 'js',
+  baseUrl: '',
   paths: {
     "jquery": "../bower_components/jquery/dist/jquery",
     'highcharts': '../bower_components/highcharts/highcharts'
@@ -16,8 +16,8 @@ require.config({
 });
 
 require([
-    'task1/views/task1',
-    'task3/chart'
+    'js/task1/views/task1',
+    'js/task3/chart'
     
   ], function(Task1View, ChartView) {
     var view1 = new Task1View();

@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'task3/models/answer'
+    'js/task3/models/answer'
   ], function($, Answer) {
     var Collection = function(items, url) {
       this._items = items || [];
