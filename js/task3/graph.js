@@ -1,20 +1,22 @@
 define([
     'jquery',
-    'js/task3/models/answer'
+    'js/task3/answer'
   ], function($, Answer) {
-    var Collection = function(items, url) {
+    var Collection = function(url, items) {
       this._items = items || [];
-      this._url = 'data.csv';
+      this._url = url || '';
     };
 
     Collection.prototype.onFetch = function(data) {
-      var itemsArray = data.split('\n');
+      var itemsArray = data.split('\r\n');
       //first row is headers
       var length = itemsArray.length;
       for(var i = 1; i < length; i++) {
         var answerData = itemsArray[i].split(';');
-        var answer = new Answer(answerData[0], answerData[1], answerData[2]);
-        this._items.push(answer);
+        if(answerData.length === 3) {
+            var answer = new Answer(answerData[0], answerData[1], answerData[2]);
+            this._items.push(answer);
+        }
       }
     }
 

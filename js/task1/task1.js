@@ -1,15 +1,10 @@
 define([
-    'js/task1/converter',
-    'js/shared/view'
+    'js/task1/converter'
 
   ], function(
-    Converter,
-    View
+    Converter
   ) {
     var Task1View = function() {};
-
-    Task1View.prototype = Object.create(View.prototype);
-    Task1View.prototype.constructor = Task1View;
 
     /**
      * render converted numbers
