@@ -19,7 +19,7 @@ require([
     'js/task1/task1',
     'js/task2/task2',
     'js/task3/task3',
-    'js/task4/ajax'
+    'js/task4/task4'
     
   ], function(Task1View, Task2View, ChartView, Task4View) {
     var view1 = new Task1View();

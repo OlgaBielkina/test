@@ -90,7 +90,7 @@ module.exports = function (grunt) {
             taskName: {
               options: {
                 vendor: 'bower_components/requirejs/require.js',
-                specs: ['tests/customMatchers.js', 'tests/**/*Test.js'],
+                specs: ['tests/config.js', 'tests/customMatchers.js', 'tests/**/*Test.js'],
                 //helpers: 'tests/*Helper.js',
                 host: 'http://localhost:9001/',
                 keepRunner: true

@@ -8,7 +8,7 @@ define([
     };
 
     Collection.prototype.onFetch = function(data) {
-      var itemsArray = data.split('\r\n');
+      var itemsArray = data.split(/\r\n|\r|\n/g);
       //first row is headers
       var length = itemsArray.length;
       for(var i = 1; i < length; i++) {
@@ -36,9 +36,7 @@ define([
       return filteredCollection;
     }
 
-    Collection.prototype.sort = function(parameter, order) {
-      var sortedCollection = new Collection();
-
+    Collection.prototype.sort = function(parameter) {
       this._items.sort(function(a, b) {
         if (a[parameter] > b[parameter]) {
           return 1;

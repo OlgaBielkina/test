@@ -1,12 +1,12 @@
 define([
   'jquery',
-  'js/task3/graph',
+  'js/task3/answers',
   'highcharts',
   'js/task3/chart'
 
   ], function(
     $,
-    Graph,
+    AnswersCollection,
     Highcharts,
     ChartConfig
   ) {
@@ -15,14 +15,14 @@ define([
     ChartView.prototype.getChartData = function() {
       var deferred = new $.Deferred();
       var chartConfigs = ChartConfig;
-      var graph = new Graph('data/data.csv');
+      var answers = new AnswersCollection('data/data.csv');
       var xAxis = [];
       var series = {name: '', data: []};
-      graph.fetch().then(function() {
+      answers.fetch().then(function() {
         var step = 1;
-        for(var i = 0; i < graph.getLength(); i = i + step) {
-          var date = graph._items[i].date;
-          var dateCollection = graph.filter('date', date);
+        for(var i = 0; i < answers.getLength(); i = i + step) {
+          var date = answers._items[i].date;
+          var dateCollection = answers.filter('date', date);
           step = dateCollection.getLength();
           var positioveCollection = dateCollection.filter('answer', 'yes');
           xAxis.push(date);

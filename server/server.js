@@ -5,14 +5,14 @@ app.get('/req1', function (req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.type('text/plain');
-  res.send('Hello')
+  res.status(200).send('Hello')
 });
 
 app.get('/req2', function (req, res) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.type('text/plain');
-  res.send('World!')
+  res.status(200).send('World!')
 });
 
 var server = app.listen(3000, function () {

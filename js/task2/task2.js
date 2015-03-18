@@ -22,7 +22,9 @@ define([
       
       var wrapper = document.createDocumentFragment();
       wrapper.appendChild(test1Node);
+      wrapper.appendChild(document.createElement('br'));
       wrapper.appendChild(test2Node);
+      wrapper.appendChild(document.createElement('br'));
       wrapper.appendChild(test3Node);
       
       return wrapper;

@@ -1,33 +1,95 @@
-describe('prototype inheritance', function() {
-  var Parent;
-  var Child;
+describe('answers collection', function() {
+  var Answers;
+  var Answer;
+  var jquery;
+  var collection;
+  var items = [
+      {id: 1, answer: 'yes'},
+      {id: 2, answer: 'no'},
+      {id: 3, answer: 'yes'}
+    ]
 
   beforeEach(function(done) {
-    require(['js/task2/parent', 'js/task2/child'], 
-      function(ParentModule, ChildModule) {
-        Parent = ParentModule;
-        Child = ChildModule;
+    require(['js/task3/answers', 'js/task3/answer', 'jquery'], 
+      function(AnswersCollection, AnswerModule, jqueryModule) {
+        Answers = AnswersCollection;
+        Answer = AnswerModule;
+        collection = new Answers();
+        jquery = jqueryModule;
         done();
     });
   });
 
-  it('child istance of parent', function() {
-    var child = new Child();
-    var parent = new Parent();
-    expect(child).toBeInstanceOf(Parent);
+  it('should send ajax request to fetch data', function() {
+    var url = 'url';
+    var data = {};
+    spyOn($, 'get').and.callFake(function (req) {
+        var d = $.Deferred();
+       // resolve using our mock data
+        d.resolve(data);
+        return d.promise();
+    });
+    collection._url = url;
+    collection.fetch();
+    expect($.get.calls.mostRecent().args[0]).toBe(url);
   });
 
-  it('child istance of Child', function() {
-    var child = new Child();
-    var parent = new Parent();
-    expect(child).toBeInstanceOf(Child);
+  it("should call success callback", function() {
+    spyOn($, "ajax").and.callFake(function(e) {
+        e.success({});
+    });
+
+    spyOn(collection, 'onFetch');
+    collection.fetch();
+
+    expect(collection.onFetch).toHaveBeenCalled();  //Verifies this was called
   });
-  
-  it('child call parent method', function() {
-    var child = new Child();
-    var parent = new Parent();
-    spyOn(parent, testMethod).andReturn('Parent method');
-    expect(child.hasOwnProperty(parent.testMethod)).toBeFalsy();
-    expect(child.testMethod()).toBe('Parent method');
+
+  it("should create answers collection", function() {
+    var data = 'ID;X;ANSWER;\r\n1;1;yes\r\n2;4;no';
+    collection.onFetch(data);
+
+    expect(collection._items.length).toBe(2);
+  });
+
+  it("item should be Answer", function() {
+    var data = 'ID;X;ANSWER;\r\n1;1;yes\r\n2;4;no';
+    collection.onFetch(data);
+
+    expect(collection._items[0]).toBeInstanceOf(Answer);
+  });
+
+  it("should ignore empty data sets", function() {
+    var data = 'ID;X;ANSWER;\r\n1;1;yes\r\n2;4;no\r\n';
+    collection.onFetch(data);
+
+    expect(collection._items.length).toBe(2);
+  });
+
+  it("should filter items", function() {
+    collection._items = items;
+    var actualResult = collection.filter('answer', 'yes');
+
+    expect(actualResult._items.length).toBe(2);
+  });
+
+  it("should sort items", function() {
+    var expectedResult = [
+      {id: 1, answer: 'yes'},
+      {id: 2, answer: 'no'},
+      {id: 3, answer: 'yes'},
+    ];
+
+    collection._items = items;
+    var actualResult = collection.sort('id');
+
+    expect(actualResult).toEqual(expectedResult);
+  });
+
+  it("should return items length", function() {
+    collection._items = items;
+    var actualResult = collection.getLength();
+
+    expect(actualResult).toBe(3);
   });
 });

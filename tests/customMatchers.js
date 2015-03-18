@@ -4,11 +4,17 @@ beforeEach(function() {
       return {
         compare: function(actual, expected) {
           var notText = this.isNot ? " not" : "";
-          this.message = function () {
-            return "Expected " + actual + notText + " to be instanceof " + expecteds;
-          };
+          var result = {};
+          if (actual instanceof expected) {
+          	result.pass = true;
+          } else {
+          	result.message = function () {
+	          return "Expected " + actual + notText + " to be instanceof " + expecteds;
+	        };
+	        result.pass = false;
+          }
 
-          return actual instanceof expected;
+          return result;
         }
       }
     },

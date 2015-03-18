@@ -6,14 +6,12 @@ define([
     'js/task1/dictionary',
     'js/shared/assert'
   ], function(Dictionary, Assert) {
-    var Converter = function() {};
-
     /**
      * Convert numbers to string in case it divided by 3 or 5 or 15
      * @param (number) number to convert
      * @return (string) return converted to string number or number itself
      */
-    Converter.prototype.convertNumber = function(number) {
+    var convertNumber = function(number) {
       Assert.isNumber(number);
 
       var convertedValue = '';
@@ -31,6 +29,8 @@ define([
       return convertedValue || number;
     }
 
-    return new Converter();
+    return {
+      convertNumber: convertNumber
+    };
   }
 );
