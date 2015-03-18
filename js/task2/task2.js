@@ -8,10 +8,6 @@ define([
   ) {
     var Task2View = function() {};
 
-    /**
-     * render converted numbers
-     * @return (HTMLElement)
-     */
     Task2View.prototype.render = function() {
       var child = new Child('Child hello world');
       

@@ -1,5 +1,5 @@
 /**
- *
+ * Child class to show prototype inheritance
  */
 define([
       'js/task2/parent'
